@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/api/students',async(req,res)=>{
-  const result = await db.query(`select * from grades`)
+  const [ result ] = await db.query(`select * from grades`)
   res.send({
     message:"this will contain students",
     student:result
@@ -30,7 +30,7 @@ app.get('/api/students',async(req,res)=>{
 
 app.get('/api/students/:id',async(req,res)=>{
 
-  const result = await db.query(`select name,course,grade from grades where id = ${req.params.id}`)
+  const [ result ] = await db.query(`select name,course,grade from grades where id = ${req.params.id}`)
   res.send({
     message:`this will contain ${req.param.id} students`,
     student:result
