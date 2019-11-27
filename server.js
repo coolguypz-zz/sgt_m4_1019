@@ -1,6 +1,7 @@
 
 const express = require('express');
 const db = require('./db');
+const path = require('path');
 
 // const mysql = require('mysql2');
 
@@ -18,7 +19,32 @@ const db = require('./db');
 
 const app = express();
 
+app.use(express.urlencoded({extended:false}))
+
+app.use(express.static(path.resolve(__dirname,'public')))
+
 app.use(express.json());
+
+app.get('/api/students/:id', async(req,res)=>{
+  const {id} = req.params;
+  const [result] = await db.execute(
+    `select g.course AS courseName,
+    g.name as studentName, 
+    g.grade as courseGrade,
+    a.name as assignmentName,
+    a.grade as assignmentGrade
+    from grades as g join assignments as a 
+    on g.id = a.grade_id 
+    where g.id = ${id}`)
+
+    const studentRecord = result[0]; // == [[result]]
+
+  res.send({
+    message:`Get a grade record and assignments for grade ID : ${id}`,
+    studentRecord,
+    result
+  })
+})
 
 app.get('/api/students',async(req,res)=>{
   const [ result ] = await db.query(`select * from grades`)
@@ -28,14 +54,14 @@ app.get('/api/students',async(req,res)=>{
   })
 })
 
-app.get('/api/students/:id',async(req,res)=>{
+// app.get('/api/students/:id',async(req,res)=>{
 
-  const [ result ] = await db.query(`select name,course,grade from grades where id = ${req.params.id}`)
-  res.send({
-    message:`this will contain ${req.param.id} students`,
-    student:result
-  })
-})
+//   const [ result ] = await db.query(`select name,course,grade from grades where id = ${req.params.id}`)
+//   res.send({
+//     message:`this will contain ${req.param.id} students`,
+//     student:result
+//   })
+// })
 
 app.delete('/api/students/:id',async(req,res)=>{
 
