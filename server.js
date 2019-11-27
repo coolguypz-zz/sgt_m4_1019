@@ -2,6 +2,9 @@
 const express = require('express');
 const db = require('./db');
 const path = require('path');
+const port = process.env.PORT || 9000;
+
+
 
 // const mysql = require('mysql2');
 
@@ -133,7 +136,6 @@ app.post(`/api/students`, async (req,res) => {
 
 
 
-const port = process.env.PORT || 9000;
 
 app.listen(port, () => console.log(`Server listen on port ${port}`));
 
