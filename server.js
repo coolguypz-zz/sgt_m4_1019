@@ -2,7 +2,7 @@
 const express = require('express');
 const db = require('./db');
 const path = require('path');
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 1000;
 
 
 
@@ -91,8 +91,6 @@ app.post(`/api/students`, async (req,res) => {
   try{
    
     const {name,course,grade} = req.body;
-    console.log("name",name);
-
     const error = [];
     if(!name){
       error.push ('No student name received')

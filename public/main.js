@@ -1,7 +1,6 @@
 $(document).ready(initApp);
 
 function initApp() {
-    console.log("app initialized");
     $("#add-student").click(submitFormData)
     getStudent();
 }
@@ -10,7 +9,6 @@ function getStudent() {
   $.ajax({
     url:'/api/students',
     success: resp =>{
-      console.log("RESP: ", resp)
       addStudentToDom(resp.student);
     }
   })
@@ -41,7 +39,6 @@ function addStudent(name,course,grade) {
       grade
     },
     success:(res)=>{
-      console.log("student: " ,res );
       getStudent();
     }
   })
