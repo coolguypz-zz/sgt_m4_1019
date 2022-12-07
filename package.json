@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Peterzhang123/sgt_m4_1019#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mysql2": "^2.0.0"
   },
   "devDependencies": {
